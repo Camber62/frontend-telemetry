@@ -1,0 +1,21 @@
+import path from 'node:path'
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
+  server: {
+    proxy: {
+      '/api/bff': {
+        target: 'http://localhost:5165',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/bff/, ''),
+      },
+    },
+  },
+})
