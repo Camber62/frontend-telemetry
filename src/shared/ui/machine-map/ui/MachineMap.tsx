@@ -66,7 +66,7 @@ export function MachineMap({
     const el = hostRef.current
     if (!el || mapRef.current) return
 
-    const map = L.map(el, { zoomControl: true, attributionControl: true }).setView(SPB, 11)
+    const map = L.map(el, { zoomControl: true, attributionControl: false }).setView(SPB, 11)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
