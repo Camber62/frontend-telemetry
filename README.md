@@ -1,73 +1,30 @@
-# React + TypeScript + Vite
+# Telemetry UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## О проекте
 
-Currently, two official plugins are available:
+Одностраничный **дашборд мониторинга** вендинга: KPI, графики продаж и популярности, карта автоматов, остатки и касса. Данные приходят с **BFF** по REST; на клиенте кэш и запросы через **TanStack Query**. Карта — **Leaflet**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Код в `src/` разложен по **Feature-Sliced Design**: `app`, `pages`, `widgets`, `features`, `entities`, `shared`. Стили — **SCSS** (`main.scss`).
 
-## React Compiler
+**Стек:** React 19, TypeScript, Vite, TanStack Query, Leaflet, Sass.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Запуск
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+В терминале появится адрес (обычно [http://localhost:5173](http://localhost:5173)) — откройте его в браузере.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Данные с бэкенда
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+В режиме разработки Vite проксирует `/api/bff` на **http://localhost:5165**. Если BFF не запущен, часть экрана может не загрузиться или упасть с ошибкой сети — поднимите мок/BFF на порту **5165** или настройте прокси в `vite.config.ts`.
+
+## Другие команды
+
+| Команда | Назначение |
+|--------|------------|
+| `npm run build` | Сборка в папку `dist` |
+| `npm run preview` | Локальный просмотр продакшен-сборки |
+| `npm run lint` | Проверка ESLint |
